@@ -1,3 +1,3 @@
 class PrivacyStatus < ApplicationRecord
-  belongs_to :journal
+  has_many :journals
 end
