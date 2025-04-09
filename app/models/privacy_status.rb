@@ -1,0 +1,2 @@
+class PrivacyStatus < ApplicationRecord
+end
