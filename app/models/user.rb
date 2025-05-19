@@ -4,4 +4,5 @@ class User < ApplicationRecord
   def self.username_list
     pluck(:username)
   end
+  
 end
