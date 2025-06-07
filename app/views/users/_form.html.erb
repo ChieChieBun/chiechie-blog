@@ -1,7 +1,7 @@
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this course from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being made:</h2>
 
       <ul>
         <% user.errors.each do |error| %>
@@ -16,12 +16,12 @@
     <%= form.text_field :username %>
   </div>
   <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.email_field :email %>
+    <%= form.label :password, style: "display: block" %>
+    <%= form.password_field :password_digest %>
   </div>
   <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password %>
+    <%= form.label :role, style: "display: block" %>
+    <%= form.text_field :role %>
   </div>
    <br>
   <div>

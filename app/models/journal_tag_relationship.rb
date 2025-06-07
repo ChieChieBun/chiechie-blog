@@ -1,4 +1,5 @@
 class JournalTagRelationship < ApplicationRecord
-  belongs_to :journal
   belongs_to :tag
+  belongs_to :journal
+
 end

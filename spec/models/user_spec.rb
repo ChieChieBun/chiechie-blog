@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe '.username_list' do
     it 'exists for a user' do
-      expect {User.username_list }.not_to raise_error(NoMethodError)
+      expect { User.username_list }.not_to raise_error(NoMethodError)
     end
 
     context 'when there are NO users' do
@@ -15,13 +14,13 @@ RSpec.describe User, type: :model do
     end
     context 'when there are users' do
     let!(:user_1) {
-      User.create!(username:'user1',
+      User.create!(username: 'user1',
       email: 'user1@test',
       password: '1234'
       )
     }
     let!(:user_2) {
-      User.create!(username:'user2',
+      User.create!(username: 'user2',
       email: 'user2@test',
       password: '4321'
       )
@@ -33,7 +32,7 @@ RSpec.describe User, type: :model do
           'user2'
         ]
       }
-  it 'returns array of usernames'do
+  it 'returns array of usernames' do
   expect(User.username_list).to eq(expected_results)
     end
   end

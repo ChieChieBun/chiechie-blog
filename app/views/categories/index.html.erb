@@ -1,0 +1,9 @@
+<h1>All Categories</h1>
+<ul><% @categories.each do |category| %>
+    <li><%= category.title %>
+    <%= button_to "Destroy", category, method: :delete %>
+    <%= link_to "Edit", edit_category_path(category)%></li>
+    <hr>
+    <% end %>
+    </ul>
+<%= link_to "New category", new_category_path %>

@@ -1,0 +1,9 @@
+<h1>All tags</h1>
+<ul><% @tags.each do |tag| %>
+    <li><%= tag.tag_name %>
+    <%= button_to "Destroy", tag, method: :delete %>
+    <%= link_to "Edit", edit_tag_path(tag)%></li>
+    <hr>
+    <% end %>
+    </ul>
+<%= link_to "New tag", new_tag_path %>

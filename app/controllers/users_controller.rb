@@ -4,9 +4,8 @@ before_action :set_user, only: %i[ show ]
     @users = User.all
   end
   def show
-    @users = User.all
-    
-
+    @user = User.find(params[:id])
+    @journals = @user.journals
   end
    def new
     @user = User.new
@@ -35,6 +34,6 @@ before_action :set_user, only: %i[ show ]
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :username, :email, :password ])
+      params.expect(user: [ :username, :role, :password_digest ])
     end
 end
