@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  resources :users do
+    resources :journals do
+      resources :comments, only: [:index, :new, :create]
+      resources :categories
+      resources :journal_tag_relationships
+    end
+  end
+  resources :tags
+  resources :categories
+  resources :comments, only: [:show, :edit, :update, :destroy] do
+    resources :comment_replies, only: [:index, :new, :create]
+  end
+  resources :comments_replies, only: [:show, :edit, :update, :destroy]
+
+get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +30,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root "home#index"
 end
