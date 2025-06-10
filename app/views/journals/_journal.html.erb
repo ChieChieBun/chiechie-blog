@@ -1,5 +1,14 @@
  <h1> <%= @journal.title %> </h1>
 
-<%= @category.title %>
-<%= @journal.tags.map{
-|t| t.tag_name} %>
+<strong>Category:</strong> <%= @category.title %>
+<br>
+<strong>Tag(s):</strong><%= [@journal.tags.map{
+|t| t.tag_name}].join(", ") %>
+<br>
+<p><%= @journal.entry %></p>
+<%= link_to (@user) do %>
+  Back to <strong><%= @user.username %></strong>
+<% end %>
+<br>
+<%= link_to "Edit", edit_user_journal_path(@user, @journal)%></li>
+<%= button_to "Destroy", @user_journal_path, method: :delete %>
