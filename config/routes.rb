@@ -1,19 +1,17 @@
 Rails.application.routes.draw do
   resources :users do
     resources :journals do
-      resources :comments, only: [:index, :new, :create]
+      resources :comments do
+        resources :comment_replies
+      end
       resources :categories
       resources :journal_tag_relationships
     end
   end
   resources :tags
   resources :categories
-  resources :comments, only: [:show, :edit, :update, :destroy] do
-    resources :comment_replies, only: [:index, :new, :create]
-  end
-  resources :comments_replies, only: [:show, :edit, :update, :destroy]
 
-get "login", to: "sessions#new"
+  get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 

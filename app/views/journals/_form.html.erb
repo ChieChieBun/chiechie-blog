@@ -13,8 +13,12 @@
   <% end %>
 
   <div>
+  <% user = User.find_by(id: session[:user_id]) %>
+      <% if user %>
     <%= form.label :user, style: "display: block" %>
-    <%= form.select :user_id , options_for_select( [[@user.username, @user.id]]),   %>
+  <%= form.select :user_id , options_for_select( [[user.username, user.id]]),{ prompt: 'Pick your username' }  %>
+  <% end %>
+
   </div>
 
 
@@ -33,7 +37,7 @@
   </div>
   <div class="form-group">
     <%= form.label :tags, style: "display: block"  %>
-    <%= collection_checkboxes(:post, :journaltagrelationships, Tag.all, :id, :tag_name) %>
+    <%= collection_checkboxes(:tag, :tag_ids, Tag.all, :id, :tag_name) %>
   </div>
 
   <div>
