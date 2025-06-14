@@ -13,8 +13,11 @@
   <% end %>
 
   <div>
+  <% user = User.find_by(id: session[:user_id]) %>
+      <% if user %>
     <%= form.label :user, style: "display: block" %>
-  <%= form.select :user_id , options_for_select( [[@user.username, @user.id]]),{ prompt: 'Pick your username' }  %>
+  <%= form.select :user_id , options_for_select( [[user.username, user.id]]),{ prompt: 'Pick your username' }  %>
+  <% end %>
 
   </div>
 

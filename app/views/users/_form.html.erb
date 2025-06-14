@@ -13,15 +13,15 @@
 
   <div>
     <%= form.label :username, style: "display: block" %>
-    <%= form.text_field :username %>
+    <%= form.text_field :username, required: true %>
   </div>
   <div>
     <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password_digest %>
+    <%= form.password_field :password, required: true%>
   </div>
   <div>
     <%= form.label :role, style: "display: block" %>
-    <%= form.text_field :role %>
+    <%= form.text_field :role, required: true %>
   </div>
    <br>
   <div>

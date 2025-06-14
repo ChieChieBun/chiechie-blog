@@ -1,4 +1,4 @@
- <h1> <%= @journal.title %> </h1>
+<h1> <%= @journal.title %> </h1>
 
 <strong>Category:</strong> <%= @category.title %>
 <br>
@@ -7,8 +7,11 @@
 <br>
 <p><%= @journal.entry %></p>
 <%= link_to (@user) do %>
-  Back to <strong><%= @user.username %></strong>
+  Back to user: <strong><%= @user.username %></strong>
 <% end %>
 <br>
+
+<% if session[:user_id] == @user.id %>
 <%= link_to "Edit", edit_user_journal_path(@user, @journal)%></li>
 <%= button_to "Destroy", @user_journal_path, method: :delete %>
+<% end %>

@@ -1,26 +1,26 @@
 class JournalsController < ApplicationController
   before_action :set_journal, only: %i[ show destroy update edit  ]
   before_action :set_user, only: %i[ show create new destroy update edit]
+  before_action :require_owner, only: %i[new create edit update destroy ]
 
  def index
-  @user = User.find(params[:user_id])
+
   @journals = @user.journals
  end
   def new
     @users = User.all
-    @user = User.find(params[:user_id])
     @journal = Journal.new
     @categories = Category.all
   end
 
   def show
-    @user = User.find_by(params[:user_id])
+
     @category = @journal.category
 
   end
   def create
     @users = User.all
-    @user = User.find(params[:user_id])
+
     @journal = Journal.new(journal_params)
     @categories = Category.all
     respond_to do |format|
@@ -41,12 +41,11 @@ class JournalsController < ApplicationController
   end
   def edit
     @users = User.all
-    @user = User.find(params[:user_id])
+
     @categories = Category.all
   end
   def update
     @users = User.all
-    @user = User.find(params[:user_id])
     @categories = Category.all
     @deletetags = JournalTagRelationship.where(journal_id:@journal)
     respond_to do |format|
@@ -78,7 +77,7 @@ class JournalsController < ApplicationController
       @journal = Journal.find(params[:id])
     end
     def set_user
-      @user = User.find(params[:user_id])
+      @user =@user = User.find(params[:user_id])
     end
     def journal_params
       params.require(:journal).permit(:user_id, :title, :category_id, :private, :entry, :tag)
