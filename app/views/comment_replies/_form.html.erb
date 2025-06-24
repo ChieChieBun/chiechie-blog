@@ -1,0 +1,9 @@
+<%= form_with(model: [@user, @journal, @comment, comment_reply], local: true) do |form| %>
+
+  <div>
+    <%= form.label :comment_reply_text, style: "display: block" %>
+    <%= form.text_field :comment_reply_text %>
+  </div>
+    <%= form.submit %>
+  </div>
+<% end %>

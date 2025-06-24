@@ -6,21 +6,27 @@ class ApplicationController < ActionController::Base
   def require_admin
     if session[:role] != 'admin'
       flash[:alert] = 'You do not have access to that page'
-        redirect_to root_path
+        redirect_back(fallback_location: root_path)
       end
     end
      def require_guest
     if session[:role] != 'guest'
       flash[:alert] = 'You do not have access to that page'
-        redirect_to root_path
+        redirect_back(fallback_location: root_path)
       end
     end
      def require_owner
     if session[:user_id] != @user.id
       flash[:alert] = 'You do not have access to that page'
-      redirect_to root_path
+      redirect_back(fallback_location: root_path)
       end
     end
+    def require_owner_or_admin
+  unless session[:user_id] == @user.id || session[:role] == 'admin'
+    flash[:alert] = 'You do not have access to that page'
+    redirect_back(fallback_location: root_path)
+  end
+end
 
     private
     def set_user

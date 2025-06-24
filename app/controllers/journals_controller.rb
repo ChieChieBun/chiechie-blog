@@ -1,7 +1,10 @@
 class JournalsController < ApplicationController
   before_action :set_journal, only: %i[ show destroy update edit  ]
   before_action :set_user, only: %i[ show create new destroy update edit]
-  before_action :require_owner, only: %i[new create edit update destroy ]
+  before_action :require_owner_or_admin, only: %i[ destroy ]
+  before_action :require_owner, only: %i[new create edit update]
+
+
 
  def index
 
@@ -14,14 +17,13 @@ class JournalsController < ApplicationController
   end
 
   def show
-
     @category = @journal.category
-
+    @comments = @journal.comments.includes(:comment_replies)
   end
   def create
     @users = User.all
-
     @journal = Journal.new(journal_params)
+    @journal.user_id = @user.id
     @categories = Category.all
     respond_to do |format|
       if @journal.save
@@ -41,7 +43,6 @@ class JournalsController < ApplicationController
   end
   def edit
     @users = User.all
-
     @categories = Category.all
   end
   def update
@@ -65,6 +66,7 @@ class JournalsController < ApplicationController
     end
   end
   def destroy
+
     @journal.destroy!
     respond_to do |format|
       format.html { redirect_to user_path(@user), status: :see_other, notice: "tag was successfully destroyed." }
@@ -77,7 +79,7 @@ class JournalsController < ApplicationController
       @journal = Journal.find(params[:id])
     end
     def set_user
-      @user =@user = User.find(params[:user_id])
+      @user = User.find(params[:user_id])
     end
     def journal_params
       params.require(:journal).permit(:user_id, :title, :category_id, :private, :entry, :tag)

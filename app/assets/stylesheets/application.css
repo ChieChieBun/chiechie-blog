@@ -8,3 +8,164 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+
+ body{
+  background-color: rgb(228, 170, 132);
+  font-family: lucy;
+  font-size: 17px;
+  color: rgb(224, 158, 255);
+}
+h1{
+  font-size: 50px;
+  margin: 10px;
+}
+h2{
+  font-size: 25px;
+  margin: 0px;
+}
+.container{
+  padding-left: 5%;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 20% 25% 25% 23%  ;
+  grid-template-rows: 150px 225px 230px 230px
+}
+
+.layout{
+  border: solid black 1px;
+  padding: 15px ;
+  background-color: rgb(0, 0, 0,70%);
+}
+
+div{
+  border-radius: 15px;
+}
+.header{
+  grid-area: 1 / 2 /2/4;
+  text-align: center;
+ }
+.header h1{
+  margin: auto;
+  padding: 10px;
+  display: inline-block;
+}
+.header h2{
+  margin: 0px;
+  text-align: right;
+  padding-right: 20px;
+}
+.header a{
+  display:inline-block;
+  margin: 2px 5px;
+}
+a{
+  color:#7fcef3;
+}
+.nav{
+  grid-area: 2 / 1 / 3/ 2;
+  min-width: 200px;
+}
+.nav h2{
+  margin: auto;
+  text-align: center;
+}
+.nav a{
+  padding-top: 10px;
+  font-size: 18px;
+}
+.nav ul{
+  padding-top: 15px;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0px ;
+  padding-left: 15px;
+}
+
+.main{
+  grid-area: 2 / 2 / 6 / 4 ;
+  line-height: 1.6;
+  overflow: auto;
+  padding-left: 30px;
+  min-width:500px;
+}
+.main::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.main::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(34, 51, 43, 0.9);
+  border-radius: 10px;
+  margin: 7px;
+}
+.main::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
+}
+
+.main::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  padding: 30px 40px;
+  -webkit-box-shadow: inset 0 0 6px rgba(250, 235, 215, 0.5);
+}
+
+.rightside{
+  grid-area: 2 / 4/ 4/ 5;
+  overflow: scroll;
+}
+
+.rightside::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.rightside::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(34, 51, 43, 0.9);
+  border-radius: 10px;
+  margin: 7px;
+}
+.rightside::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
+}
+
+.rightside::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  padding: 30px 40px;
+  -webkit-box-shadow: inset 0 0 6px rgba(250, 235, 215, 0.5);
+}
+
+.nav a:hover{
+  color: rgb(255, 170, 227);
+  font-size: 20px;
+}
+
+.commentReply {
+  margin-top: 10px;
+}
+
+.commentReplies hr{
+  max-width: 75%;
+  margin-left: 10px;
+}
+
+
+.hidden{
+  display: none;
+}
+
+button{
+  border-radius: 2px;
+  border: none;
+  text-decoration: none;
+  background-color: #7fcef3;
+  box-sizing:content-box ;
+  padding: 5px 10px;
+  display: inline-block;
+  margin: 5px;
+}
+
+span{
+  color: rgb(255, 115, 115);
+  font-size: 12px;
+  margin-left: 20px;
+}
