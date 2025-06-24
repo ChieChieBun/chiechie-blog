@@ -18,32 +18,58 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', data: { turbolinks: false } %>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+<div class="container">
+  <div class="header layout">
 
+  <h1> Welcome</h1>
    <% if session[:user_id] %>
-              <li>
-                <% user = User.find_by(id: session[:user_id]) %>
-                <% if user %>
-                  <span>Welcome, <%= user.username %>!</span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-        <div>
-          <% if session[:user_id] %>
-            <%= button_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>
-          <% else %>
-            <%= link_to 'Login', login_path, class: 'logout-link nav-link' %>
-            <%= link_to 'Signup', new_user_path %>
-          <% end %>
-          <% if flash[:alert] %>
-    <div><%= flash[:alert] %></div>
+    <% user = User.find_by(id: session[:user_id]) %>
+      <% if user %>
+        <h1><%= user.username %>!</h1>
+        <% end %>
+      <% end %>
+    <% if session[:user_id] %>
+      <%= button_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>
+    <% else %>
+    <br>
+      <%= link_to 'Login', login_path, class: 'logout-link nav-link' %>
+      <%= link_to 'Signup', new_user_path %>
+      <% end %>
+      <% if flash[:alert] %>
+      <%= flash[:alert] %>
+      <% end %>
+      </div>
+
+  <div class="layout nav">
+  <h2>Navigation</h2>
+  <ul>
+  <% user = User.find_by(id: session[:user_id]) %>
+  <li><%= link_to "Home", root_path %></li>
+  <li><%= link_to 'Users', users_path %></li>
+<% if user&.role == "admin" %>
+  <li><%= link_to 'Tags', tags_path %></li>
+  <li><%= link_to 'Categories', categories_path %></li>
   <% end %>
+  </ul>
+</div>
+  <div class="main layout">
     <%= yield %>
+  </div>
+
+  <% sidebar = yield(:sidebar) %>
+  <% if sidebar.present? %>
+  <div class="rightside layout">
+  <%= sidebar %>
+  </div>
+<% end %>
+  </div>
+
   </body>
 </html>

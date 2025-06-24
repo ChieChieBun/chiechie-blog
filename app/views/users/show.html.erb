@@ -1,17 +1,26 @@
 
 <h1> Journals for <%= @user.username %>  </h1> <%= link_to "Back to users", users_path %>
-
+<%if session[:user_id] == @user.id %>
 <%= link_to "New Journal", new_user_journal_path(@user) %>
+<% end %>
 <ul>
 <% @journals.each do |journal| %>
   <% if journal.private != true %>
       <li><%= link_to journal.title , user_journal_path(@user, journal) %>
       <hr>
       </li>
-      <% elsif session[:user_id] == @user.id %>
+  <% elsif session[:user_id] == @user.id %>
+      <% if journal.private == true %>
       <li><%= link_to journal.title , user_journal_path(@user, journal) %>
+      <span>Private<span>
       <hr>
       </li>
-    <% end %>
-    <% end %>
+      <% else %>
+      <li>
+          <%= link_to journal.title , user_journal_path(@user, journal) %>
+      <hr>
+      </li>
+      <% end %>
+  <% end %>
+<% end %>
 </ul>

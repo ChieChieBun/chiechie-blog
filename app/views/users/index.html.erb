@@ -1,7 +1,14 @@
+
 <h1>Users</h1>
 <ul>
 <% @users.each do |user| %>
-      <li><%= link_to user.username, user_path(user)%> <%= user.journals.count %></li>
+
+      <li><%= link_to user.username, user_path(user)%>
+      <% if session[:user_id] == user.id %>
+       <%= user.journals.count %><% else %>
+      <%= user.journals.where(private: false).count %>
+      </li>
+      <% end %>
     <% end %>
 </ul>
-<%= link_to "Home", root_path %>
+

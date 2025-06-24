@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :journals do
       resources :comments do
-        resources :comment_replies
+        resources :comment_replies, only: [:create, :destroy]
       end
       resources :categories
       resources :journal_tag_relationships

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 before_action :set_user, only: %i[ show ]
+
   def index
     @users = User.all
   end
@@ -12,6 +13,7 @@ before_action :set_user, only: %i[ show ]
   end
   def create
     @user = User.new(user_params)
+    @user.role = "guest"
 
     respond_to do |format|
       if @user.save

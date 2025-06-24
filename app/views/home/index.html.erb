@@ -1,8 +1,5 @@
-<h1>Home</h1>
- 
-<% user = User.find_by(id: session[:user_id]) %>
-<%= link_to 'Users', users_path %>
-<% if user&.role == "admin" %>
-  <%= link_to 'Tags', tags_path %>
-  <%= link_to 'Categories', categories_path %>
-  <% end %>
+
+
+ <h1>Home</h1>
+
+ Welcome! To my Code the Dream Ruby on Rails Final Project! I slightly veered off the inital path by making it be able to have multiple people signup and make journals and not just one person. I'm not sure if I was supposed to make it like that or not. Hope everything works and you enjoy looking around!

@@ -1,1 +1,11 @@
-<%= render @journal %>
+
+  <%= render @journal %>
+<%= link_to (@user) do %>
+  Back to user: <strong><%= @user.username %></strong>
+<% end %>
+<br>
+<% if session[:user_id] == @user.id || session[:role] == 'admin' %>
+<%= link_to "Edit", edit_user_journal_path(@user, @journal)%>
+<%= button_to "Destroy", @user_journal_path, method: :delete %>
+<% end %>
+

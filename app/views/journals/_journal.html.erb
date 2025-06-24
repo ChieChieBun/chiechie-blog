@@ -1,17 +1,72 @@
-<h1> <%= @journal.title %> </h1>
 
+<h1> <%= @journal.title %> </h1>
+Created: <%= @journal.created_at.strftime("%B %d, %Y") %>
+<br>
+Last Updated: <%= @journal.updated_at.strftime("%B %d, %Y") %>
+<br>
+<br>
 <strong>Category:</strong> <%= @category.title %>
 <br>
 <strong>Tag(s):</strong><%= [@journal.tags.map{
 |t| t.tag_name}].join(", ") %>
 <br>
-<p><%= @journal.entry %></p>
-<%= link_to (@user) do %>
-  Back to user: <strong><%= @user.username %></strong>
+<p><%= simple_format(@journal.entry) %></p>
+
+
+
+
+<% content_for :sidebar do %>
+  <br>
+  <%= form_with(url: "/users/#{@user.id}/journals/#{@journal.id}/comments", method: :post, model: Comment.new, local: true,html: { class: 'hidden' }) do |form| %>
+  <div>
+    <%= form.label :comment_text, style: "display: block" %>
+    <%= form.text_field :comment_text %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>
 <br>
+<div class="commentSection">
+<ul>
+<% @comments.reverse_each do |comment| %>
+  <li>
+  <%= comment.comment_text  %> |
+  <%= comment.created_at.strftime("%B %d, %Y %I:%M %p") %>
+  <% if session[:user_id] == @user.id || session[:role] == 'admin' %>
+  <%= button_to "Delete Comment", user_journal_comment_path(@user, @journal, comment), method: :delete %>
+  <% end %>
+  </li>
+  <button class="toggle-replies-button">View Replies</button>
 
-<% if session[:user_id] == @user.id %>
-<%= link_to "Edit", edit_user_journal_path(@user, @journal)%></li>
-<%= button_to "Destroy", @user_journal_path, method: :delete %>
+<div class="commentReplies hidden">
+<ul>
+<!-- Reply Form -->
+  <%= form_with(url: "/users/#{@user.id}/journals/#{@journal.id}/comments/#{comment.id}/comment_replies", method: :post, model: CommentReply.new, local: true ) do |form| %>
+  <div>
+    <%= form.label :comment_reply, style: "display: block" %>
+    <%= form.text_field :comment_reply_text %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+ <% comment.comment_replies.reverse_each do |comment_reply| %>
+<li class="commentReply">
+<hr>
+<%= comment_reply.comment_reply_text  %> |
+<%= comment_reply.created_at.strftime("%B %d, %Y %I:%M %p")%>
+<% if session[:user_id] == @user.id || session[:role] == 'admin' %>
+<%= button_to "Delete Reply", user_journal_comment_comment_reply_path(@user, @journal, comment, comment_reply), method: :delete %>
+<% end %>
+
+</li>
+<% end %>
+</ul>
+</div>
+<hr>
+<% end %>
+</ul>
+</div>
 <% end %>
